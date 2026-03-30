@@ -82,3 +82,7 @@
       ansible.builtin.fail:
         msg: "Configuration file is not valid. Please check that before re-running the playbook."
       when: check_result is failed
+
+    - name: debug all vars
+      ansible.builtin.debug:
+        var: hostvars[inventory_hostname]
