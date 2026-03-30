@@ -1,0 +1,43 @@
+- hosts: web
+  tasks:
+    - name: Installs apache web server
+      ansible.builtin.package:
+        name: apache2
+        state: present
+
+    - name: Push virtual host configuration
+      ansible.builtin.copy:
+        src: awesome-app.conf
+        dest: /etc/apache2/sites-available/awesome-app.conf
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Create awesome-app web root
+      ansible.builtin.file:
+        path: /var/www/awesome-app/
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: '0755'
+
+    - name: Remove the default virtualhost
+      ansible.builtin.file:
+        path: /etc/apache2/sites-enabled/000-default.conf
+        state: absent
+
+    - name: Remove the default ssl virtualhost
+      ansible.builtin.file:
+        path: /etc/apache2/sites-enabled/default-ssl.conf
+        state: absent
+
+    - name: Activates our virtualhost
+      ansible.builtin.file:
+        src: /etc/apache2/sites-available/awesome-app.conf
+        dest: /etc/apache2/sites-enabled/awesome-app.conf
+        state: link
+
+    - name: restart apache
+      ansible.builtin.systemd_service:
+        name: apache2
+        state: restarted
