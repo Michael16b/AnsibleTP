@@ -17,6 +17,6 @@ listen cluster
     stats enable
     balance roundrobin
 {% for backend in groups['web'] %}
-    server {{hostvars[backend].inventory_hostname | upper}} {{hostvars[backend].ansible_eth1.ipv4.address}} check port 80 weight {{ hostvars[backend]['haproxy_backend_weight'] | default(100) }}
+    server {{hostvars[backend].inventory_hostname | upper}} {{hostvars[backend].ansible_eth1.ipv4.address}} check port 80 weight {{ hostvars[backend].haproxy_backend_weight | default(100) }}
 {% endfor %}
     option httpchk HEAD / HTTP/1.0

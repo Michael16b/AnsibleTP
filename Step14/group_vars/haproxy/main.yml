@@ -1,0 +1,1 @@
+haproxy_stats_socket: /tmp/sock
