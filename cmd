@@ -40,3 +40,4 @@
    65  ls
    66  cd ..
    67  history
+   ansible-playbook --diff -i inventaire site.yml
