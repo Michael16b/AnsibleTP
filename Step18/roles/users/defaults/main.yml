@@ -1,0 +1,12 @@
+users:
+ - login: lskywalker
+   fullname: SKYWALKER Luke
+   root: allowed
+   group: developer
+   password: ESZwQwTY8N
+   ssh_key: ssh-ed25519 1561655156151561561ggregerg lskywalker
+ - login: hsolo
+   fullname: SOLO han
+   root: denied
+   password: meWREfXFk8
+   ssh_key: ssh-ed25519 1561651151n51561561ggregerg hsolo

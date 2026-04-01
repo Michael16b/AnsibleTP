@@ -1,4 +1,3 @@
-# Apache
 - name: Installs necessary packages
   ansible.builtin.package:
     name: "{{ packages }}"
@@ -13,8 +12,6 @@
   ansible.builtin.git:
     repo: "https://github.com/TiJof/ansible-tuto-demosite.git"
     dest: "/var/www/awesome-app"
-  tags:
-    - git
 
 - name: Push virtual host configuration
   ansible.builtin.copy:
@@ -27,7 +24,6 @@
   register: backup_file
   notify:
     - restart apache
-
 
 - name: Create awesome-app web root
   ansible.builtin.file:
@@ -49,7 +45,6 @@
     state: absent
   notify:
     - restart apache
-
 
 - name: Activates our virtualhost
   ansible.builtin.file:

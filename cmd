@@ -43,3 +43,7 @@
    ansible-playbook --diff -i inventaire site.yml
    echo 'coucou' | wall
    ansible-playbook --diff -i inventaire site.yml --start-at-task="users : Create groups for users" --ask-vault-pass
+ansible-playbook --diff -i inventaire site.yml --tags "git"
+
+ansible-playbook --diff -i inventaire site.yml --ask-vault-pass --tags "git"
+# Ajouter le mdp : zQGyw4qGmy
