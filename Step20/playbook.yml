@@ -1,8 +1,13 @@
 - name: Configure Apache with vhosts
-  hosts: all
+  hosts: web
   become: true
 
   pre_tasks:
+    - name: Ensure ssl-cert package is installed
+      ansible.builtin.package:
+        name: ssl-cert
+        state: present
+
     - name: Ensure vhost document roots exist
       ansible.builtin.file:
         path: "{{ item }}"
@@ -19,6 +24,10 @@
 
   vars:
     apache_remove_default_vhost: false
+
+    apache_mods_enabled:
+      - rewrite
+      - ssl
 
     apache_vhosts:
       - servername: "test12.localdomain"
