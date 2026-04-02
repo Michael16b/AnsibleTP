@@ -9,8 +9,10 @@
 - name: Haproxy
   hosts: haproxy
   become: true
+  collections:
+    - sigma.haproxy
   roles:
-    - reverseproxy
+    - haproxy
 
 
 # Playbook pour les utilisateurs

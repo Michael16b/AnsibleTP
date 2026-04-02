@@ -1,6 +1,6 @@
 argument_specs:
   main:
-    short_description: Main entrypoint for reverseproxy role
+    short_description: Main entrypoint for haproxy role
     description:
       - Install and configure HAProxy reverse proxy.
     options:

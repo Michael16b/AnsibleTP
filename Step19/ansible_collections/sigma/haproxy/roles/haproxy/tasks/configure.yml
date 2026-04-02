@@ -5,7 +5,7 @@
     owner: root
     group: root
     mode: "0644"
-  notify: restart haproxy
+  notify: Restart haproxy
 
 - name: Ensure HAProxy service startup flag is enabled on Debian family
   ansible.builtin.lineinfile:
@@ -14,4 +14,4 @@
     line: "ENABLED=1"
     create: false
   when: ansible_os_family == "Debian"
-  notify: restart haproxy
+  notify: Restart haproxy

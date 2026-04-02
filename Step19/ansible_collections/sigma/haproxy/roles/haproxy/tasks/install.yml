@@ -1,4 +1,4 @@
-
+---
 - name: Ensure HAProxy package is installed
   ansible.builtin.package:
     name: "{{ haproxy_package_name }}"

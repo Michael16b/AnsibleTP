@@ -1,5 +1,5 @@
+---
 galaxy_info:
-  role_name: haproxy
   author: Sigma
   description: Install and configure HAProxy as a reverse proxy / load balancer.
   company: Sigma

@@ -1,0 +1,7 @@
+- name: Deploy HAProxy from collection
+  hosts: "{{ targets | default('haproxy') }}"
+  become: true
+  collections:
+    - sigma.haproxy
+  roles:
+    - role: haproxy

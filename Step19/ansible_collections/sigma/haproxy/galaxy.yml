@@ -1,0 +1,16 @@
+---
+namespace: sigma
+name: haproxy
+version: 1.0.0
+readme: README.md
+authors:
+  - Sigma Team
+description: Collection containing reusable HAProxy automation role.
+license:
+  - MIT
+tags:
+  - haproxy
+  - proxy
+  - reverseproxy
+  - loadbalancer
+dependencies: {}

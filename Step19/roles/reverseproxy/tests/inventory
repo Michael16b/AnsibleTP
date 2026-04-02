@@ -1,2 +1,0 @@
-[haproxy]
-localhost ansible_connection=local
