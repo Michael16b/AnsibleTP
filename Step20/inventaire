@@ -1,0 +1,10 @@
+[web]
+Machine2 ansible_host=192.168.33.12 ansible_user=root
+Machine3 ansible_host=192.168.33.13 ansible_user=root
+
+[haproxy]
+Machine1 ansible_host=192.168.33.11 ansible_user=root
+
+[users]
+Machine2 ansible_host=192.168.33.12 ansible_user=root
+Machine3 ansible_host=192.168.33.13 ansible_user=root

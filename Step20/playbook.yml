@@ -1,0 +1,35 @@
+- name: Configure Apache with vhosts
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Ensure vhost document roots exist
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: www-data
+        group: www-data
+        mode: "0755"
+      loop:
+        - /var/www/site1
+        - /var/www/site2
+
+  roles:
+    - role: geerlingguy.apache
+
+  vars:
+    apache_remove_default_vhost: false
+
+    apache_vhosts:
+      - servername: "test12.localdomain"
+        serveralias: "test13.localdomain"
+        documentroot: "/var/www/site1"
+
+      - servername: "test2.localdomain"
+        documentroot: "/var/www/site2"
+
+    apache_vhosts_ssl:
+      - servername: "test-ssl.localdomain"
+        documentroot: "/var/www/site1"
+        certificate_file: "/etc/ssl/certs/ssl-cert-snakeoil.pem"
+        certificate_key_file: "/etc/ssl/private/ssl-cert-snakeoil.key"
