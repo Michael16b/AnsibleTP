@@ -6,17 +6,19 @@ global
 {% endif %}
 
 defaults
-    mode http
-    timeout connect 5000ms
-    timeout client 50000ms
-    timeout server 50000ms
+    mode {{ haproxy_mode }}
+    timeout connect {{ haproxy_timeout_connect }}
+    timeout client {{ haproxy_timeout_client }}
+    timeout server {{ haproxy_timeout_server }}
 listen cluster
-    balance roundrobin
-    bind {{ansible_eth1.ipv4.address}}:80
-    mode http
+    balance {{ haproxy_balance_algorithm }}
+    bind {{ haproxy_bind_address }}:{{ haproxy_bind_port }}
+    mode {{ haproxy_mode }}
+{% if haproxy_enable_stats %}
     stats enable
-    balance roundrobin
-{% for backend in groups['web'] %}
-    server {{hostvars[backend].inventory_hostname | upper}} {{hostvars[backend].ansible_eth1.ipv4.address}} check port 80 weight {{ hostvars[backend].haproxy_backend_weight | default(100) }}
+{% endif %}
+{% for backend in groups[haproxy_backend_group] | default([]) %}
+{% set backend_address = hostvars[backend].haproxy_backend_address | default(hostvars[backend].ansible_host | default(backend)) %}
+    server {{ hostvars[backend].inventory_hostname | upper }} {{ backend_address }}{% if haproxy_backend_check %} check{% endif %} port {{ haproxy_backend_port }} weight {{ hostvars[backend].haproxy_backend_weight | default(haproxy_backend_weight_default) }}
 {% endfor %}
-    option httpchk HEAD / HTTP/1.0
+    option httpchk {{ haproxy_httpchk }}

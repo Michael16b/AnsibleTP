@@ -1,0 +1,7 @@
+---
+- name: Test reverseproxy role
+  hosts: haproxy
+  gather_facts: true
+  become: true
+  roles:
+    - role: reverseproxy

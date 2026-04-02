@@ -1,19 +1,12 @@
-# Reverse proxy
-- name: Installs haproxy load balancer
-  ansible.builtin.apt:
-    name: haproxy
-    state: present
-    update_cache: true
+# Role entrypoint
+- name: Install HAProxy
+  ansible.builtin.import_tasks: install.yml
+  tags:
+    - haproxy
+    - haproxy_install
 
-- name: Pushes template configuration (not a copy) (to /etc/haproxy/haproxy.cfg)
-  ansible.builtin.template:
-    src: haproxy.cfg.j2
-    dest: /etc/haproxy/haproxy.cfg
-  notify: restart haproxy
-
-- name: Sets default starting flag to 1
-  ansible.builtin.lineinfile:
-    dest: /etc/default/haproxy
-    regexp: "^ENABLED"
-    line: "ENABLED=1"
-  notify: restart haproxy
+- name: Configure HAProxy
+  ansible.builtin.import_tasks: configure.yml
+  tags:
+    - haproxy
+    - haproxy_configure

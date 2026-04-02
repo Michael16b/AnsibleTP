@@ -1,0 +1,59 @@
+argument_specs:
+  main:
+    short_description: Main entrypoint for reverseproxy role
+    description:
+      - Install and configure HAProxy reverse proxy.
+    options:
+      haproxy_package_name:
+        type: str
+        default: haproxy
+      haproxy_service_name:
+        type: str
+        default: haproxy
+      haproxy_config_path:
+        type: str
+        default: /etc/haproxy/haproxy.cfg
+      haproxy_bind_interface:
+        type: str
+        default: eth1
+      haproxy_bind_port:
+        type: int
+        default: 80
+      haproxy_bind_address:
+        type: str
+      haproxy_mode:
+        type: str
+        default: http
+      haproxy_balance_algorithm:
+        type: str
+        default: roundrobin
+      haproxy_timeout_connect:
+        type: str
+        default: 5000ms
+      haproxy_timeout_client:
+        type: str
+        default: 50000ms
+      haproxy_timeout_server:
+        type: str
+        default: 50000ms
+      haproxy_enable_stats:
+        type: bool
+        default: true
+      haproxy_stats_socket:
+        type: str
+        default: ""
+      haproxy_backend_group:
+        type: str
+        default: web
+      haproxy_backend_port:
+        type: int
+        default: 80
+      haproxy_backend_weight_default:
+        type: int
+        default: 100
+      haproxy_backend_check:
+        type: bool
+        default: true
+      haproxy_httpchk:
+        type: str
+        default: HEAD / HTTP/1.0

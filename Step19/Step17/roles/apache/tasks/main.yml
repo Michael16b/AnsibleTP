@@ -1,5 +1,0 @@
-# Apache
-- name: Run apache role tasks
-  ansible.builtin.include_tasks: deploy.yml
-  tags:
-    - apache

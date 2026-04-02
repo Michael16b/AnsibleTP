@@ -1,0 +1,10 @@
+
+- name: Ensure HAProxy package is installed
+  ansible.builtin.package:
+    name: "{{ haproxy_package_name }}"
+    state: present
+
+- name: Ensure HAProxy service is enabled
+  ansible.builtin.service:
+    name: "{{ haproxy_service_name }}"
+    enabled: true

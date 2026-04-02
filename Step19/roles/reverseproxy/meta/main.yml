@@ -1,0 +1,21 @@
+galaxy_info:
+  role_name: haproxy
+  author: Sigma
+  description: Install and configure HAProxy as a reverse proxy / load balancer.
+  company: Sigma
+  license: MIT
+  min_ansible_version: "2.14"
+  platforms:
+    - name: Debian
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - all
+  galaxy_tags:
+    - haproxy
+    - proxy
+    - reverseproxy
+    - loadbalancer
+
+dependencies: []

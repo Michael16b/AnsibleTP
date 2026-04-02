@@ -1,5 +1,5 @@
 # Reverse proxy
 - name: Restart haproxy
   ansible.builtin.service:
-    name: haproxy
+    name: "{{ haproxy_service_name }}"
     state: restarted

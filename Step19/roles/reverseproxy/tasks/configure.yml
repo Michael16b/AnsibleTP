@@ -1,0 +1,17 @@
+- name: Render HAProxy configuration
+  ansible.builtin.template:
+    src: haproxy.cfg.j2
+    dest: "{{ haproxy_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify: restart haproxy
+
+- name: Ensure HAProxy service startup flag is enabled on Debian family
+  ansible.builtin.lineinfile:
+    path: /etc/default/haproxy
+    regexp: "^ENABLED="
+    line: "ENABLED=1"
+    create: false
+  when: ansible_os_family == "Debian"
+  notify: restart haproxy

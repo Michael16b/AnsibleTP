@@ -1,0 +1,22 @@
+haproxy_package_name: haproxy
+haproxy_service_name: haproxy
+haproxy_config_path: /etc/haproxy/haproxy.cfg
+
+haproxy_bind_interface: eth1
+haproxy_bind_port: 80
+haproxy_bind_address: "{{ ansible_facts.get(haproxy_bind_interface, {}).get('ipv4', {}).get('address', ansible_default_ipv4.address) }}"
+
+haproxy_mode: http
+haproxy_balance_algorithm: roundrobin
+haproxy_timeout_connect: 5000ms
+haproxy_timeout_client: 50000ms
+haproxy_timeout_server: 50000ms
+
+haproxy_enable_stats: true
+haproxy_stats_socket: ""
+
+haproxy_backend_group: web
+haproxy_backend_port: 80
+haproxy_backend_weight_default: 100
+haproxy_backend_check: true
+haproxy_httpchk: "HEAD / HTTP/1.0"
