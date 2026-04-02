@@ -1,21 +1,19 @@
+
 # Playbook pour les serveurs web
-- name: Web
-  hosts: web
+- hosts: web
   become: true
   roles:
     - apache
 
 # Playbook pour le reverse proxy
-- name: Haproxy
-  hosts: haproxy
+- hosts: haproxy
   become: true
   roles:
     - reverseproxy
 
 
 # Playbook pour les utilisateurs
-- name: Users
-  hosts: users
+- hosts: users
   become: true
   roles:
     - users

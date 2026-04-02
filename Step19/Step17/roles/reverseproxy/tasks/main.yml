@@ -3,7 +3,7 @@
   ansible.builtin.apt:
     name: haproxy
     state: present
-    update_cache: true
+    update_cache: yes
 
 - name: Pushes template configuration (not a copy) (to /etc/haproxy/haproxy.cfg)
   ansible.builtin.template:

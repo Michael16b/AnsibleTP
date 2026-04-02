@@ -1,4 +1,4 @@
-users_users:
+users:
  - login: lskywalker
    fullname: SKYWALKER Luke
    root: allowed

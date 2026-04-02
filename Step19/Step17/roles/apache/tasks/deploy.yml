@@ -20,7 +20,7 @@
     owner: root
     group: root
     mode: '0644'
-    backup: true
+    backup: yes
   register: backup_file
   notify:
     - restart apache
@@ -57,14 +57,14 @@
 - name: Check that our config is valid
   command: apache2ctl configtest
   register: check_result
-  ignore_errors: true
+  ignore_errors: True
 
 - name: Rolling back - Restoring our virtualhost
   when: check_result is failed
   ansible.builtin.copy:
-    src: "{{ backup_file.backup_file }}"
+    src: "{{backup_file.backup_file}}"
     dest: /etc/apache2/sites-available/awesome-app.conf
-    remote_src: true
+    remote_src: yes
     owner: root
     group: root
 

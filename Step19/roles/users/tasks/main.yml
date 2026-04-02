@@ -1,0 +1,54 @@
+- name: Create groups for users
+  ansible.builtin.group:
+    name: "{{ item.group | default(item.login) }}"
+    state: present
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.login }}"
+
+
+- name: Create users
+  ansible.builtin.user:
+    name: "{{ item.login }}"
+    group: "{{ item.group | default(item.login) }}"
+    state: present
+    shell: /bin/bash
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.login }}"
+
+- name: Set password for users
+  ansible.builtin.user:
+    name: "{{ item.login }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.login }}"
+
+- name: Add users to sudo group
+  ansible.builtin.user:
+    name: "{{ item.login }}"
+    groups: sudo
+    append: yes
+  when: item.root == 'allowed'
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.login }}"
+
+- name: Remove users from sudo group when he is not allowed to use root (state absent)
+  ansible.builtin.user:
+    name: "{{ item.login }}"
+    groups: 
+  when: item.root == 'denied'
+  loop: "{{ users }}"
+  loop_control:
+    label: "{{ item.login }}"
+
+- name: Ensure authorized SSH key is configured
+  ansible.posix.authorized_key:
+      user: "{{ item.login }}"
+      key: "{{ item.ssh_key }}"
+      state: present
+  loop: "{{ users }}"
+  loop_control:
+      label: "{{ item.login }}"
